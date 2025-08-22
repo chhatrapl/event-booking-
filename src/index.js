@@ -5,7 +5,7 @@ import { connectDB } from "./db/db.js";
 
 
 
-const port  = 4000 || process.env.PORT 
+const port = process.env.PORT || 4000
 
 
 connectDB()
