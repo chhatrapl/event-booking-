@@ -4,6 +4,7 @@ import { genrateAccessToken } from "../utils/genrateAccessToken.js";
 import bcrypt from "bcrypt";
 
 
+
 export const signup = async (req, res) => {
 
     let { name, email, password } = req.body;
@@ -154,7 +155,7 @@ export const login = async (req, res) =>{
   
 }
 
-export const logout = async(req, res)=>{
+export const logout = async (req, res)=>{
     const userId = req.user._id;
     console.log("userId ; ",userId);
  try {
@@ -178,3 +179,37 @@ export const logout = async(req, res)=>{
  }
 
 };
+
+export const deleteUser = async (req, res) => {
+    const userId = req.user.id;
+    console.log(userId)
+    try {
+          if (!userId) {
+            return res.status(404).json({
+                message: "unauthorized request"
+            })
+             };
+  
+             const deletedUser = await User.findByIdAndDelete(userId);
+             if(!deleteUser){
+                return res.status(404).json({
+                message: "user not deleted"
+            })
+             }
+
+             return res.status(202).json({
+                success:true,
+                message:"user deleted successfully"
+             });
+
+
+    } catch (error) {
+         return res.status(500).json(
+                    {
+                        success: false,
+                        message: "somthing went wrong!",
+                        error: error.message || error.toString() || "Unknown error"
+                    }
+                )
+    }
+}

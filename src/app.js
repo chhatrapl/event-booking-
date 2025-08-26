@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 import UserRouter from "./routes/user.route.js";
+import eventRouter from "./routes/event.route.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(cookieParser());
 
 
 app.use("/api/v1/users",UserRouter);
+app.use("/api/v1/events", eventRouter);
 
 
 
